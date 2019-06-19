@@ -18,17 +18,26 @@ Constraints
 1 <= |T| <= 10^5 
  */
 
-
+//This is the main Function
 const StrFunctionCalc = (stringIn) => {
     if ( stringIn.length < 10**5 ) {
         let string = stringIn.trim().toLowerCase()
         let results = generateAllsCom(string).map(subStr => searchAndCount(string,subStr) * subStr.length)
-        return Math.max.apply(null,results)   
+        // return Math.max.apply(null,results)   
+        return getMaxValFromArr(results)
     }else {
         return 0
     }
 }
+//this function was created for solve the limit of in Math.max.apply...
+const getMaxValFromArr = array => {
+    let max = 0
+    array.forEach(num => {
+        if(num>max){max=num}})
+    return max
+}
 
+//This is a fucntion that return alls combinations of string, is recursive and repeat some words, but its mine.
 const generateAllsCom = string => {
         let recursive = (active, rest, arrResult)  => {
             if (!active && !rest)
@@ -43,16 +52,12 @@ const generateAllsCom = string => {
         }
         return recursive("", string, []);
     }
-
+// this function search and count how many times appear the word or subString in a string.
 const searchAndCount = (string,subStr) => {
     
     for(var count=-1,index=-2; 
         index != -1; 
         count++,index=string.indexOf(subStr,index+1) );
-    console.log(subStr+' Qty:'+count);
+    // console.log(subStr+' Qty:'+count);
     return count
 }
-
-
-
-console.log(StrFunctionCalc('abcabcddd'));
